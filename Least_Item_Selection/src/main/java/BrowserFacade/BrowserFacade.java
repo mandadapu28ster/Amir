@@ -13,33 +13,30 @@ import java.util.concurrent.TimeUnit;
 
 
 public class BrowserFacade {
-    private  static WebDriver driver;
-    public static WebDriver getDriver() {
+    private static WebDriver driver;
+    public static WebDriver getDriver() throws Exception {
+        return OpenBrowser();
+    }
+
+
+    public static WebDriver OpenBrowser() throws Exception {
+        String browserType = System.getenv("browser".toLowerCase());
+        if (browserType == "fireFox") {
+            System.setProperty("webdriver.gecko.driver",
+                "C:\\Users\\Amir\\eclipse-workspace\\SainsburryExample\\src\\test\\resources\\Drivers\\geckodriver.exe");
+            driver = new FirefoxDriver();
+        } else if (browserType == "ie") {
+            System.setProperty("webdriver.ie.driver",
+                "C:\\Users\\Amir\\eclipse-workspace\\SainsburryExample\\src\\test\\resources\\Drivers\\IEDriverServer.exe");
+            driver = new InternetExplorerDriver();
+        } else {
+            System.setProperty("webdriver.chrome.driver",
+                "C:\\Users\\Amir\\eclipse-workspace\\SainsburryExample\\src\\test\\resources\\Drivers\\chromedriver.exe");
+            driver = new ChromeDriver();
+        }
         return driver;
     }
 
-
-    public void OpenBrowser() throws Exception {
-
-        String browserType = System.getenv("browser".toLowerCase());
-
-
-        if (browserType== "chrome") {
-
-            System.getProperty("webdriver.chrome.driver","C:\\Users\\Amir\\eclipse-workspace\\SainsburryExample\\src\\test\\resources\\Drivers\\chromedriver.exe");
-            driver = new ChromeDriver();
-        }
-        else if(browserType=="FireFox") {
-
-            System.getProperty("webdriver.gecko.driver","C:\\Users\\Amir\\eclipse-workspace\\SainsburryExample\\src\\test\\resources\\Drivers\\geckodriver.exe");
-            driver= new FirefoxDriver();
-        }
-        else if(browserType== "ie") {
-
-            System.getProperty("webdriver.ie.driver","C:\\Users\\Amir\\eclipse-workspace\\SainsburryExample\\src\\test\\resources\\Drivers\\IEDriverServer.exe");
-            driver = new InternetExplorerDriver();
-        }
-    }
     public void closeBrowser() {
         driver.close();
     }
