@@ -1,0 +1,37 @@
+package StepDef;
+
+import BrowserFacade.Browserfacade;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
+
+public class StepDefination {
+
+   // WebDriver driver ;
+
+    @Given("I am on home page")
+    public void i_am_on_home_page() throws Exception {
+
+       /* System.setProperty("webdriver.chrome.driver",
+        "C:\\Users\\Amir\\IdeaProjects\\SainsBurrysLeastPrice\\src\\main\\resources\\Drivers\\chromedriver.exe");
+        driver= new ChromeDriver();
+        driver.get("https://www.sainsburys.co.uk/");
+        driver.manage().window().maximize();*/
+        Browserfacade.getdriver().get("https://www.sainsburys.co.uk");
+        WebElement BtnAcceptCookies=  Browserfacade.getdriver().findElement(By.xpath("//button[contains(@id ,'onetrust-accept-btn-handler')]"));
+        Browserfacade.WaitForElementToBeVisible(Browserfacade.getdriver(),BtnAcceptCookies,Duration.ofSeconds(50));
+        BtnAcceptCookies.click();
+
+
+
+
+    }
